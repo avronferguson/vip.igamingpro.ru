@@ -416,5 +416,54 @@
       setTimeout(() => (b.textContent = "⧉"), 900);
     });
   </script>
+  
+<script>
+  const WIN_MIN = 300000;
+  const WIN_MAX = 950000;
+
+  function formatRub(n) {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽";
+  }
+
+  function hashToFloat(str) {
+    let h = 2166136261;
+    for (let i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return (h >>> 0) / 4294967295;
+  }
+
+  function dailyRand(dayKey, cardKey) {
+    return hashToFloat(dayKey + "|" + cardKey);
+  }
+
+  (function setDailyWins() {
+    const today = new Date();
+    const dayKey = today.getFullYear() + "-" + String(today.getMonth()+1).padStart(2,"0") + "-" + String(today.getDate()).padStart(2,"0");
+
+    // ВАЖНО: меняем только элементы с data-win="1"
+    const els = document.querySelectorAll('[data-win="1"]');
+
+    els.forEach((el, idx) => {
+      const card = el.closest(".card");
+      const nameEl = card ? card.querySelector(".brand__name") : null;
+      const cardKey = (nameEl ? nameEl.textContent.trim() : "card") + "#" + idx;
+
+      const storeKey = "daily_win_" + dayKey + "_" + cardKey;
+
+      let val = localStorage.getItem(storeKey);
+      if (val == null) {
+        const r = dailyRand(dayKey, cardKey);
+        const n = Math.round(WIN_MIN + r * (WIN_MAX - WIN_MIN));
+        val = String(n);
+        localStorage.setItem(storeKey, val);
+      }
+
+      el.textContent = formatRub(Number(val));
+    });
+  })();
+</script>
+
 </body>
 </html>
