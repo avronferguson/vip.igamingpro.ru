@@ -5,7 +5,175 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#0b0d16" />
   <title>Топ подборка — декабрь</title>
-  <link rel="stylesheet" href="./styles.css" />
+
+  <style>
+    :root{
+      --bg0:#070812; --bg1:#0b0d16;
+      --cyan:#35f3ff; --violet:#b455ff; --pink:#ff4bd8; --lime:#7CFF8A;
+      --text:#eaf6ff; --muted:#a9b7d0;
+      --shadow: 0 20px 60px #00000080; --r: 22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 50% 0%, #291a5f55, transparent 70%),
+        radial-gradient(900px 500px at 70% 30%, #0dd6ff22, transparent 70%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+      overflow-x:hidden;
+    }
+    .container{width:min(1120px, calc(100% - 32px)); margin:0 auto;}
+    .bg{position:fixed; inset:0; z-index:-1;}
+    .bg__grid{
+      position:absolute; inset:-40px;
+      background: radial-gradient(circle at 1px 1px, #2be7ff20 1px, transparent 1px) 0 0/14px 14px;
+      opacity:.55;
+    }
+    .bg__glow{position:absolute; width:900px; height:900px; border-radius:50%; filter: blur(60px); opacity:.55;}
+    .bg__glow--a{left:-220px; top:-260px; background: radial-gradient(circle, #2be7ff55, transparent 60%);}
+    .bg__glow--b{right:-260px; top:180px; background: radial-gradient(circle, #b44cff55, transparent 60%);}
+    .bg__stars{
+      position:absolute; inset:0;
+      background-image:
+        radial-gradient(circle, #ffffff40 1px, transparent 2px),
+        radial-gradient(circle, #ffffff25 1px, transparent 2px),
+        radial-gradient(circle, #ffffff20 1px, transparent 2px);
+      background-size: 120px 120px, 160px 160px, 220px 220px;
+      background-position: 10px 20px, 40px 80px, 70px 140px;
+      opacity:.25;
+    }
+
+    .hero{padding:44px 0 18px;}
+    .hero__title{
+      margin:0; text-align:center; letter-spacing:.04em; font-weight:900;
+      line-height:1.02; font-size: clamp(34px, 4.6vw, 64px);
+      text-transform:uppercase;
+      text-shadow: 0 0 30px #2be7ff25, 0 0 40px #b44cff15;
+    }
+    .neon{display:inline-block; padding:0 .12em; filter: drop-shadow(0 0 18px #2be7ff33) drop-shadow(0 0 22px #b44cff22);}
+    .neon--cyan{background: linear-gradient(90deg, #9ff9ff, var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+    .neon--violet{background: linear-gradient(90deg, #e0c8ff, var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+    .hero__sub{
+      margin:14px auto 0; text-align:center; color:#bdfcff; letter-spacing:.08em;
+      text-transform:uppercase; font-weight:700; font-size:13px;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+    }
+    .spark{filter: drop-shadow(0 0 10px #ffd86b55);}
+    .hero__note{margin:14px auto 0; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;}
+    .pill{
+      padding:8px 12px; border-radius:999px; background:#101833aa;
+      border:1px solid #2be7ff33; color:var(--muted);
+      box-shadow: 0 0 0 1px #00000040 inset; font-size:12px;
+    }
+    .pill--outline{border-color:#b44cff33;}
+
+    .grid{
+      display:grid; grid-template-columns: repeat(3, 1fr);
+      gap:18px; padding:18px 0 28px;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 640px){ .grid{grid-template-columns: 1fr;} .hero{padding-top:34px;} }
+
+    .card{
+      position:relative; border-radius: var(--r); padding:18px;
+      background: linear-gradient(180deg, #0d1222cc, #0a0d18cc);
+      box-shadow: var(--shadow);
+      border:1px solid #2be7ff22;
+      overflow:hidden;
+    }
+    .card::before{
+      content:""; position:absolute; inset:-2px;
+      border-radius: calc(var(--r) + 2px);
+      padding:2px;
+      background: linear-gradient(135deg, #2be7ff55, #b44cff55, #2be7ff22);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity:.9; pointer-events:none;
+    }
+    .card__head{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      padding-bottom:12px; border-bottom:1px solid #2be7ff22;
+    }
+    .brand{display:flex; align-items:center; gap:10px; min-width:0;}
+    .brand__dot{width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px #2be7ff88;flex:0 0 auto;}
+    .brand__dot--violet{background:var(--violet);box-shadow:0 0 14px #b44cff88;}
+    .brand__dot--lime{background:var(--lime);box-shadow:0 0 14px #7CFF8A66;}
+    .brand__name{
+      font-weight:900; letter-spacing:.02em; font-size:20px;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      background: linear-gradient(90deg, #e9fbff, #b7caff);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .ribbon{
+      font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase;
+      padding:8px 10px; border-radius:12px;
+      background: linear-gradient(135deg, #ffb347, #ff4bd8);
+      color:#12071f; box-shadow:0 10px 30px #00000055, 0 0 18px #ff4bd833;
+    }
+
+    .card__split{display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:14px 0 0;}
+    .card__split--thin{padding-top:12px;}
+    .stat{
+      border-radius:16px; background:#111b35aa; border:1px solid #2be7ff22;
+      padding:14px 14px 12px; box-shadow:0 0 0 1px #00000044 inset;
+    }
+    .stat--dark{background:#0d1020aa; border-color:#b44cff22;}
+    .stat__big{font-weight:900; font-size:22px; color:#7cf8ff; text-shadow:0 0 18px #2be7ff33;}
+    .stat__small{margin-top:6px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted);}
+
+    .mini{
+      border-radius:16px; background:#0e152baa; border:1px solid #2be7ff22;
+      padding:12px 14px; box-shadow:0 0 0 1px #00000044 inset;
+    }
+    .mini--dark{border-color:#b44cff22; background:#0c0f1daa;}
+    .mini__label{font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#9fb2cf;}
+    .mini__value{margin-top:8px; font-weight:900; font-size:22px; color:var(--pink); text-shadow:0 0 18px #ff4bd833;}
+
+    .promo{
+      margin-top:14px; border-radius:16px; background:#0d1020aa;
+      border:1px solid #b44cff33; padding:12px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .promo__label{font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#b7a7ff; white-space:nowrap;}
+    .promo__code{
+      cursor:pointer; border:1px solid #ff4bd833; background:transparent;
+      color:#ffb3ef; font-weight:900; letter-spacing:.08em;
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px; border-radius:14px;
+      box-shadow:0 0 0 1px #00000033 inset, 0 0 22px #ff4bd81a;
+    }
+    .promo__code svg{width:18px;height:18px;fill:#ffb3ef;opacity:.9}
+
+    .btn{
+      margin-top:14px; display:flex; align-items:center; justify-content:center; gap:10px;
+      text-decoration:none; font-weight:1000; text-transform:uppercase; letter-spacing:.12em;
+      color:#07111a; padding:14px; border-radius:999px;
+      background: linear-gradient(90deg, #2be7ff, #7aa8ff);
+      box-shadow:0 18px 40px #00000055, 0 0 26px #2be7ff25;
+      border:1px solid #ffffff22;
+    }
+    .btn__arrow{font-size:18px}
+
+    .toast{
+      position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+      background:#0f1730f0; border:1px solid #2be7ff33; color:#eaf6ff;
+      padding:10px 14px; border-radius:14px; box-shadow:0 20px 60px #00000080;
+      opacity:0; pointer-events:none; transition:opacity .18s ease, transform .18s ease;
+      font-weight:800;
+    }
+    .toast--show{opacity:1; transform:translateX(-50%) translateY(-4px);}
+
+    .footer{padding:8px 0 32px; color:#93a7c8;}
+    .footer__row{display:flex; justify-content:space-between; gap:16px; border-top:1px solid #2be7ff18; padding-top:18px; flex-wrap:wrap;}
+    .footer__warn{font-weight:900; color:#cfeaff;}
+    .footer__meta{margin-top:6px; font-size:12px;}
+    .footer__right{display:flex; gap:14px; flex-wrap:wrap;}
+    .footer__link{color:#b9c9e8; text-decoration:none; border-bottom:1px dashed #2be7ff33; padding-bottom:2px;}
+  </style>
 </head>
 
 <body>
@@ -39,8 +207,8 @@
   </header>
 
   <main class="container">
-    <section class="grid" id="cards">
-      <!-- Карточки — редактируй как хочешь -->
+    <section class="grid">
+      <!-- пример карточки -->
       <article class="card">
         <div class="card__head">
           <div class="brand">
@@ -74,180 +242,21 @@
 
         <div class="promo">
           <div class="promo__label">Промокод VIP</div>
-          <button class="promo__code js-copy" data-copy="BIGBONUS100">
+          <button class="promo__code js-copy" data-copy="BIGBONUS100" type="button">
             <span>BIGBONUS100</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/></svg>
           </button>
         </div>
 
-        <a class="btn" href="#" data-link="https://tracker.referilink.com/link?btag=102115133_475652">
+        <a class="btn" href="https://tracker.referilink.com/link?btag=102115133_475652">
           Начать играть <span class="btn__arrow">→</span>
         </a>
-      </article>
-
-      <article class="card">
-        <div class="card__head">
-          <div class="brand">
-            <span class="brand__dot brand__dot--violet"></span>
-            <div class="brand__name">Irwin Casino</div>
-          </div>
-        </div>
-
-        <div class="card__split">
-          <div class="stat">
-            <div class="stat__big">100% + 100FS</div>
-            <div class="stat__small">Welcome pack</div>
-          </div>
-          <div class="stat stat--dark">
-            <div class="stat__big">50FS</div>
-            <div class="stat__small">по промокоду</div>
-          </div>
-        </div>
-
-        <div class="card__split card__split--thin">
-          <div class="mini">
-            <div class="mini__label">Регистраций сегодня</div>
-            <div class="mini__value js-rand" data-min="330" data-max="380">—</div>
-          </div>
-          <div class="mini mini--dark">
-            <div class="mini__label">Макс. выигрыш сегодня</div>
-            <div class="mini__value js-money" data-min="300000" data-max="420000">—</div>
-          </div>
-        </div>
-
-        <div class="promo">
-          <div class="promo__label">Промокод VIP</div>
-          <button class="promo__code js-copy" data-copy="BIGBONUS100">
-            <span>BIGBONUS100</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/></svg>
-          </button>
-        </div>
-
-        <a class="btn" href="#" data-link="https://tracker.referilink.com/link?btag=102115133_475652">
-          Начать играть <span class="btn__arrow">→</span>
-        </a>
-      </article>
-
-      <article class="card">
-        <div class="card__head">
-          <div class="brand">
-            <span class="brand__dot brand__dot--cyan"></span>
-            <div class="brand__name">Izzi Casino</div>
-          </div>
-        </div>
-
-        <div class="card__split">
-          <div class="stat">
-            <div class="stat__big">100% + 100FS</div>
-            <div class="stat__small">Welcome pack</div>
-          </div>
-          <div class="stat stat--dark">
-            <div class="stat__big">50FS</div>
-            <div class="stat__small">по промокоду</div>
-          </div>
-        </div>
-
-        <div class="card__split card__split--thin">
-          <div class="mini">
-            <div class="mini__label">Регистраций сегодня</div>
-            <div class="mini__value js-rand" data-min="325" data-max="375">—</div>
-          </div>
-          <div class="mini mini--dark">
-            <div class="mini__label">Макс. выигрыш сегодня</div>
-            <div class="mini__value js-money" data-min="310000" data-max="430000">—</div>
-          </div>
-        </div>
-
-        <div class="promo">
-          <div class="promo__label">Промокод VIP</div>
-          <button class="promo__code js-copy" data-copy="BIGBONUS100">
-            <span>BIGBONUS100</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/></svg>
-          </button>
-        </div>
-
-        <a class="btn" href="#" data-link="https://tracker.referilink.com/link?btag=102115133_475652">
-          Начать играть <span class="btn__arrow">→</span>
-        </a>
-      </article>
-
-      <!-- второй ряд (как на 2-й фотке) -->
-      <article class="card">
-        <div class="card__head">
-          <div class="brand">
-            <span class="brand__dot brand__dot--lime"></span>
-            <div class="brand__name">Fresh Casino</div>
-          </div>
-        </div>
-        <div class="card__split">
-          <div class="stat"><div class="stat__big">100% + 100FS</div><div class="stat__small">Welcome pack</div></div>
-          <div class="stat stat--dark"><div class="stat__big">50FS</div><div class="stat__small">по промокоду</div></div>
-        </div>
-        <div class="card__split card__split--thin">
-          <div class="mini"><div class="mini__label">Регистраций сегодня</div><div class="mini__value js-rand" data-min="330" data-max="390">—</div></div>
-          <div class="mini mini--dark"><div class="mini__label">Макс. выигрыш сегодня</div><div class="mini__value js-money" data-min="320000" data-max="450000">—</div></div>
-        </div>
-        <div class="promo">
-          <div class="promo__label">Промокод VIP</div>
-          <button class="promo__code js-copy" data-copy="BIGBONUS100"><span>BIGBONUS100</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/></svg>
-          </button>
-        </div>
-        <a class="btn" href="#" data-link="https://tracker.referilink.com/link?btag=102115133_475652">Начать играть <span class="btn__arrow">→</span></a>
-      </article>
-
-      <article class="card">
-        <div class="card__head">
-          <div class="brand">
-            <span class="brand__dot"></span>
-            <div class="brand__name">Twin Casino</div>
-          </div>
-        </div>
-        <div class="card__split">
-          <div class="stat"><div class="stat__big">100% + 100FS</div><div class="stat__small">Welcome pack</div></div>
-          <div class="stat stat--dark"><div class="stat__big">50FS</div><div class="stat__small">по промокоду</div></div>
-        </div>
-        <div class="card__split card__split--thin">
-          <div class="mini"><div class="mini__label">Регистраций сегодня</div><div class="mini__value js-rand" data-min="320" data-max="380">—</div></div>
-          <div class="mini mini--dark"><div class="mini__label">Макс. выигрыш сегодня</div><div class="mini__value js-money" data-min="300000" data-max="440000">—</div></div>
-        </div>
-        <div class="promo">
-          <div class="promo__label">Промокод VIP</div>
-          <button class="promo__code js-copy" data-copy="BIGBONUS100"><span>BIGBONUS100</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/></svg>
-          </button>
-        </div>
-        <a class="btn" href="#" data-link="https://tracker.referilink.com/link?btag=102115133_475652">Начать играть <span class="btn__arrow">→</span></a>
-      </article>
-
-      <article class="card">
-        <div class="card__head">
-          <div class="brand">
-            <span class="brand__dot brand__dot--violet"></span>
-            <div class="brand__name">Beef Casino</div>
-          </div>
-        </div>
-        <div class="card__split">
-          <div class="stat"><div class="stat__big">100% + 100FS</div><div class="stat__small">Welcome pack</div></div>
-          <div class="stat stat--dark"><div class="stat__big">50FS</div><div class="stat__small">по промокоду</div></div>
-        </div>
-        <div class="card__split card__split--thin">
-          <div class="mini"><div class="mini__label">Регистраций сегодня</div><div class="mini__value js-rand" data-min="320" data-max="380">—</div></div>
-          <div class="mini mini--dark"><div class="mini__label">Макс. выигрыш сегодня</div><div class="mini__value js-money" data-min="310000" data-max="470000">—</div></div>
-        </div>
-        <div class="promo">
-          <div class="promo__label">Промокод VIP</div>
-          <button class="promo__code js-copy" data-copy="BIGBONUS100"><span>BIGBONUS100</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9v14z"/></svg>
-          </button>
-        </div>
-        <a class="btn" href="#" data-link="https://tracker.referilink.com/link?btag=102115133_475652">Начать играть <span class="btn__arrow">→</span></a>
       </article>
     </section>
 
     <footer class="footer">
       <div class="footer__row">
-        <div class="footer__left">
+        <div>
           <div class="footer__warn">18+ Играйте ответственно.</div>
           <div class="footer__meta">Информация на странице носит ознакомительный характер.</div>
         </div>
@@ -261,6 +270,41 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-  <script src="./script.js"></script>
+  <script>
+    (function () {
+      const toast = document.getElementById("toast");
+      function showToast(text) {
+        toast.textContent = text;
+        toast.classList.add("toast--show");
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(() => toast.classList.remove("toast--show"), 1400);
+      }
+      document.querySelectorAll(".js-rand").forEach((el) => {
+        const min = Number(el.dataset.min || 300);
+        const max = Number(el.dataset.max || 400);
+        el.textContent = String(Math.floor(min + Math.random() * (max - min + 1)));
+      });
+      document.querySelectorAll(".js-money").forEach((el) => {
+        const min = Number(el.dataset.min || 250000);
+        const max = Number(el.dataset.max || 500000);
+        const v = Math.floor(min + Math.random() * (max - min + 1));
+        el.textContent = v.toLocaleString("ru-RU") + " ₽";
+      });
+      document.querySelectorAll(".js-copy").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const value = btn.getAttribute("data-copy") || btn.textContent.trim();
+          try { await navigator.clipboard.writeText(value); }
+          catch {
+            const ta = document.createElement("textarea");
+            ta.value = value; document.body.appendChild(ta);
+            ta.select(); document.execCommand("copy"); ta.remove();
+          }
+          showToast("Промокод скопирован");
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
+
+
