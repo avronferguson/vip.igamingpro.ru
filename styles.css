@@ -369,4 +369,3 @@ body::after{
 @keyframes shine{ to{ transform: translateX(140%) rotate(18deg); } }
 
 .cta:hover{ filter: saturate(1.12) contrast(1.05); }
-
