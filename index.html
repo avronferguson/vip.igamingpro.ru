@@ -1,896 +1,363 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="color-scheme" content="dark" />
-  <title>Выборка проектов</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Топ выборка проектов за 2025–2026 год</title>
+<style>
+:root{
+  --bg:#070812; --card:rgba(12,18,32,.70); --stroke:rgba(70,210,255,.18);
+  --txt:#e9f3ff; --muted:rgba(233,243,255,.68);
+  --grad:linear-gradient(90deg,#33d4ff 0%,#6b7cff 45%,#d84bff 100%);
+}
+*{box-sizing:border-box} html,body{height:100%}
+body{
+  margin:0; font:14px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  color:var(--txt); background:var(--bg); overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:-70px; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 18% 18%, rgba(50,170,255,.22), transparent 60%),
+    radial-gradient(900px 520px at 85% 35%, rgba(255,190,80,.14), transparent 62%),
+    url("https://vip.igamingpro.ru/assets/logos/zeus.png");
+  background-size:cover; background-position:center 10%; background-repeat:no-repeat;
+  filter: blur(18px) saturate(1.12) contrast(1.05);
+  opacity:.55;
+  animation: bgFloat 10s ease-in-out infinite alternate;
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(600px 420px at 30% 30%, rgba(46,210,255,.10), transparent 60%),
+    radial-gradient(700px 520px at 70% 40%, rgba(220,90,255,.10), transparent 60%),
+    radial-gradient(900px 700px at 50% 95%, rgba(255,190,80,.08), transparent 60%);
+  animation: glowPulse 6.5s ease-in-out infinite;
+  mix-blend-mode:screen;
+}
+@keyframes bgFloat{from{transform:translate3d(-8px,-6px,0) scale(1.03)}to{transform:translate3d(10px,8px,0) scale(1.06)}}
+@keyframes glowPulse{0%,100%{opacity:.55}50%{opacity:.9}}
 
-  <!-- Можно удалить, если не хочешь внешние шрифты -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+.wrap{position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:34px 16px 50px}
+h1{
+  margin:0 0 8px; text-align:center; letter-spacing:.2px;
+  font-weight:800; font-size:clamp(22px,3vw,36px);
+  background:linear-gradient(90deg,#76f1ff,#b7a6ff,#ff86d8);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 0 18px rgba(90,220,255,.18);
+  animation:titleShine 3.2s linear infinite;
+}
+@keyframes titleShine{
+  0%{filter:drop-shadow(0 0 10px rgba(60,210,255,.10))}
+  50%{filter:drop-shadow(0 0 18px rgba(220,90,255,.18))}
+  100%{filter:drop-shadow(0 0 10px rgba(60,210,255,.10))}
+}
+.sub{
+  text-align:center; color:var(--muted); margin:0 0 22px;
+  font-weight:650; letter-spacing:.12em; text-transform:uppercase; font-size:12px;
+}
+.bolt{display:inline-block; animation:bolt 1.1s ease-in-out infinite}
+@keyframes bolt{0%,100%{transform:translateY(0); filter:drop-shadow(0 0 6px rgba(90,220,255,.25))}50%{transform:translateY(-2px); filter:drop-shadow(0 0 12px rgba(255,200,90,.35))}}
 
-  <style>
-    :root{
-      --bg:#070812;
-      --text:#eaf0ff;
-      --muted:#a9b6df;
+.grid{
+  display:grid; gap:14px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.grid{grid-template-columns:1fr}}
 
-      --cyan:#2fe7ff;
-      --cyan2:#2ad4ff;
-      --violet:#a855ff;
-      --pink:#ff44d6;
+.card{
+  border-radius:18px; padding:16px;
+  background:linear-gradient(180deg, rgba(18,30,52,.72), rgba(10,14,26,.72));
+  border:1px solid var(--stroke);
+  box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.05);
+  backdrop-filter: blur(10px);
+  min-height:290px; /* карточки повыше */
+  position:relative;
+}
+.card::before{
+  content:""; position:absolute; inset:-1px; border-radius:18px; pointer-events:none;
+  background:linear-gradient(135deg, rgba(60,210,255,.28), rgba(216,75,255,.18), rgba(255,195,90,.12));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  padding:1px;
+  opacity:.55;
+}
+.toprow{display:flex; align-items:center; gap:12px; margin-bottom:12px}
+.logo{
+  width:64px; height:64px; border-radius:14px;
+  display:grid; place-items:center;
+  background:rgba(0,0,0,.15);
+  box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 10px 18px rgba(0,0,0,.35);
+}
+.logo img{
+  width:54px; height:54px; object-fit:contain;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,.55)) drop-shadow(0 0 16px rgba(60,210,255,.18));
+}
+.name{font-weight:800; font-size:18px; margin:0}
+.rows{display:grid; gap:10px}
+.row2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.pill{
+  border-radius:14px; padding:10px 12px;
+  background:rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.06);
+}
+.pill .k{color:rgba(233,243,255,.55); font-size:11px; letter-spacing:.12em; text-transform:uppercase}
+.pill .v{margin-top:3px; font-weight:800}
+.pill .v.vip{color:#6ee8ff}
+.pill .v.on{color:#7bffcc}
 
-      /* “Olympus-ish” золото/небо */
-      --gold:#ffd36a;
-      --gold2:#ffb74a;
-      --sky:#3aa6ff;
+.promo{
+  display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center;
+  border-radius:14px; padding:10px 12px;
+  background:linear-gradient(180deg, rgba(10,20,34,.35), rgba(0,0,0,.22));
+  border:1px solid rgba(255,195,90,.22);
+  box-shadow: inset 0 0 0 1px rgba(255,195,90,.06);
+}
+.promo .k{color:rgba(233,243,255,.55); font-size:11px; letter-spacing:.12em; text-transform:uppercase}
+.promo .code{font-weight:900; font-size:18px; letter-spacing:.08em; color:#ffd27a; text-shadow:0 0 14px rgba(255,195,90,.18)}
+.copy{
+  border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.06);
+  color:var(--txt); border-radius:12px; padding:10px 12px; cursor:pointer;
+  font-weight:700;
+}
+.copy:active{transform:translateY(1px)}
 
-      --cardA:#0d1020;
-      --cardB:#0a0c16;
-
-      --line: rgba(110,255,250,.22);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background: var(--bg);
-      color:var(--text);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      -webkit-text-size-adjust:100%;
-      overflow-x:hidden;
-    }
-
-    /* Gate of Olympus vibe: небо + “облака” + золото + неон */
-    body::before{
-      content:"";
-      position:fixed;
-      inset:-160px;
-      z-index:0;
-      pointer-events:none;
-      background:
-        /* верхнее небо */
-        radial-gradient(900px 520px at 50% 8%, rgba(58,166,255,.30), transparent 65%),
-        radial-gradient(880px 520px at 18% 10%, rgba(46,231,255,.18), transparent 70%),
-        radial-gradient(920px 580px at 82% 14%, rgba(168,85,255,.16), transparent 70%),
-
-        /* “золото” как свечение рамок/храма */
-        radial-gradient(680px 420px at 50% 26%, rgba(255,211,106,.18), transparent 64%),
-        radial-gradient(780px 520px at 72% 38%, rgba(255,183,74,.12), transparent 68%),
-
-        /* облака (размытые пятна) */
-        radial-gradient(520px 260px at 26% 22%, rgba(255,255,255,.10), transparent 70%),
-        radial-gradient(640px 320px at 64% 22%, rgba(255,255,255,.08), transparent 72%),
-        radial-gradient(760px 380px at 46% 36%, rgba(255,255,255,.07), transparent 74%),
-        radial-gradient(820px 420px at 30% 56%, rgba(255,255,255,.05), transparent 76%),
-        radial-gradient(860px 460px at 76% 62%, rgba(255,255,255,.04), transparent 76%),
-
-        /* диагональные “лучи” */
-        linear-gradient(115deg, transparent 0%, rgba(58,166,255,.12) 46%, transparent 54%),
-        linear-gradient(255deg, transparent 0%, rgba(255,211,106,.10) 44%, transparent 54%);
-
-      filter: blur(18px) saturate(1.25) contrast(1.06);
-      opacity:.98;
-      transform: translateZ(0);
-      animation: olympSky 10s ease-in-out infinite alternate;
-    }
-    @keyframes olympSky{
-      from{ transform: translate3d(-10px,-8px,0) scale(1.03); }
-      to  { transform: translate3d(12px,10px,0) scale(1.06); }
-    }
-
-    /* сетка/зерно точками как у “слотовых” лендингов */
-    .dotgrid{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-      opacity:.14;
-      background-image: radial-gradient(rgba(255,255,255,.22) 1px, transparent 1px);
-      background-size: 6px 6px;
-      mask-image: radial-gradient(70% 60% at 50% 18%, #000 56%, transparent 100%);
-      -webkit-mask-image: radial-gradient(70% 60% at 50% 18%, #000 56%, transparent 100%);
-    }
-
-    /* “молния” как декоративная анимация по странице */
-    .lightning{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-      opacity:.14;
-      background:
-        radial-gradient(900px 520px at 14% 40%, rgba(46,231,255,.18), transparent 60%),
-        radial-gradient(900px 520px at 86% 44%, rgba(255,211,106,.16), transparent 62%),
-        linear-gradient(120deg, transparent 0%, rgba(255,255,255,.18) 48%, transparent 55%);
-      mix-blend-mode: screen;
-      filter: blur(28px);
-      animation: flash 3.6s ease-in-out infinite;
-    }
-    @keyframes flash{
-      0%, 62%, 100% { opacity:.06; }
-      66% { opacity:.18; }
-      72% { opacity:.08; }
-      80% { opacity:.15; }
-    }
-
-    .wrap{
-      position:relative;
-      z-index:1;
-      max-width:1180px;
-      margin:0 auto;
-      padding: 34px 16px 70px;
-    }
-
-    /* Заголовок: “дорого” + анимированный градиент */
-    .hero-title{
-      margin: 6px 0 10px;
-      text-align:center;
-      font-family: Orbitron, Inter, system-ui, sans-serif;
-      font-weight: 800;
-      letter-spacing:.03em;
-      line-height:1.08;
-      font-size: 44px;
-
-      background: linear-gradient(90deg,
-        rgba(255,211,106,.96) 0%,
-        rgba(46,231,255,.92) 28%,
-        rgba(168,85,255,.92) 56%,
-        rgba(255,68,214,.90) 78%,
-        rgba(255,211,106,.96) 100%);
-      background-size: 220% 100%;
-      -webkit-background-clip:text;
-      background-clip:text;
-      color: transparent;
-
-      text-shadow:
-        0 0 20px rgba(255,211,106,.10),
-        0 0 22px rgba(46,231,255,.12),
-        0 0 24px rgba(168,85,255,.10);
-
-      animation: titleShift 4.8s ease-in-out infinite;
-    }
-    @keyframes titleShift{
-      0%   { background-position: 0% 50%; filter: brightness(1.02); }
-      50%  { background-position: 100% 50%; filter: brightness(1.08); }
-      100% { background-position: 0% 50%; filter: brightness(1.02); }
-    }
-
-    .hero-sub{
-      margin: 0 auto 26px;
-      max-width: 920px;
-      text-align:center;
-      font-family: Orbitron, Inter, system-ui, sans-serif;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      font-size: 13px;
-      color: rgba(234,240,255,.82);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap: 10px;
-    }
-
-    /* “анимированная молния-эмодзи” */
-    .zap{
-      display:inline-block;
-      transform: translateZ(0);
-      filter: drop-shadow(0 0 10px rgba(255,211,106,.35));
-      animation: zap 1.15s ease-in-out infinite;
-    }
-    @keyframes zap{
-      0%, 100% { transform: translateY(0) rotate(-10deg) scale(1); opacity:.95; }
-      40%      { transform: translateY(-2px) rotate(12deg) scale(1.06); opacity:1; }
-      70%      { transform: translateY(0) rotate(-6deg) scale(1.02); opacity:.95; }
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 20px;
-      margin-top: 18px;
-    }
-    @media (max-width: 980px){
-      .hero-title{font-size:38px}
-      .grid{grid-template-columns: repeat(2, minmax(0,1fr));}
-    }
-    @media (max-width: 620px){
-      .hero-title{font-size:30px}
-      .grid{grid-template-columns: 1fr;}
-      .wrap{padding-top: 24px;}
-    }
-
-    /* Карточка: как пример — неон рамка */
-    .card{
-      position:relative;
-      border-radius: 18px;
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(46,231,255,.10), transparent 55%),
-        radial-gradient(1200px 700px at 90% 0%, rgba(168,85,255,.10), transparent 55%),
-        linear-gradient(180deg, rgba(14,16,33,.92), rgba(10,12,22,.92));
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      border: 1px solid rgba(60,240,255,.18);
-      min-height: 370px;  /* ← сделали выше */
-    }
-
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      border-radius: 18px;
-      padding: 1px;
-      background: linear-gradient(135deg,
-        rgba(58,166,255,.40),
-        rgba(46,231,255,.55),
-        rgba(255,211,106,.28),
-        rgba(168,85,255,.28),
-        rgba(255,68,214,.28));
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events:none;
-      opacity:.92;
-    }
-
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:-60px;
-      background:
-        radial-gradient(260px 200px at 20% 12%, rgba(46,231,255,.18), transparent 60%),
-        radial-gradient(300px 240px at 82% 14%, rgba(168,85,255,.14), transparent 60%),
-        radial-gradient(320px 260px at 52% 20%, rgba(255,211,106,.10), transparent 62%);
-      filter: blur(20px);
-      opacity:.8;
-      pointer-events:none;
-    }
-
-    .card-inner{
-      position:relative;
-      z-index:1;
-      padding: 18px 18px 18px; /* ↑ больше воздуха */
-    }
-
-    .head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      min-width:0;
-    }
-
-    /* ЛОГО — крупнее, без рамки */
-    .logo{
-      width: 64px;
-      height: 40px;
-      display:flex;
-      align-items:center;
-      justify-content:flex-start;
-      flex: 0 0 auto;
-      overflow: visible;
-    }
-    .logo img{
-      width: 64px;
-      height: 40px;
-      object-fit: contain;
-
-      /* “подсветка изнутри” + белое свечение */
-      filter:
-        brightness(1.12) contrast(1.06)
-        drop-shadow(0 0 10px rgba(255,255,255,.40))
-        drop-shadow(0 0 16px rgba(46,231,255,.22))
-        drop-shadow(0 0 14px rgba(255,211,106,.12));
-      transform: translateZ(0);
-      animation: logoPulse 3.2s ease-in-out infinite;
-    }
-    @keyframes logoPulse{
-      0%,100%{ filter:
-        brightness(1.10) contrast(1.06)
-        drop-shadow(0 0 10px rgba(255,255,255,.34))
-        drop-shadow(0 0 16px rgba(46,231,255,.18))
-        drop-shadow(0 0 14px rgba(255,211,106,.10));
-      }
-      50%{ filter:
-        brightness(1.16) contrast(1.06)
-        drop-shadow(0 0 12px rgba(255,255,255,.46))
-        drop-shadow(0 0 18px rgba(46,231,255,.24))
-        drop-shadow(0 0 16px rgba(255,211,106,.14));
-      }
-    }
-
-    .title{
-      min-width:0;
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-    }
-    .name{
-      font-family: Orbitron, Inter, system-ui, sans-serif;
-      font-weight: 800;
-      letter-spacing:.02em;
-      font-size: 16px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .hint{
-      font-size: 11px;
-      color: rgba(234,240,255,.62);
-      letter-spacing:.12em;
-      text-transform:uppercase;
-    }
-
-    .pill{
-      font-family: Orbitron, Inter, system-ui, sans-serif;
-      font-size: 11px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      padding: 6px 10px;
-      border-radius:999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color: rgba(234,240,255,.82);
-      box-shadow: 0 10px 22px rgba(0,0,0,.25);
-      flex:0 0 auto;
-    }
-    .pill.top{ border-color: rgba(46,231,255,.22); color: rgba(46,231,255,.88); }
-    .pill.hot{ border-color: rgba(255,68,214,.22); color: rgba(255,68,214,.88); }
-    .pill.new{ border-color: rgba(168,85,255,.22); color: rgba(168,85,255,.88); }
-    .pill.vip{ border-color: rgba(255,211,106,.20); color: rgba(255,211,106,.90); }
-
-    .rows{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .box{
-      border-radius: 14px;
-      background:
-        radial-gradient(220px 140px at 12% 10%, rgba(46,231,255,.12), transparent 60%),
-        radial-gradient(240px 160px at 90% 20%, rgba(168,85,255,.12), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border: 1px solid rgba(255,255,255,.08);
-      padding: 12px 12px 12px;
-      min-height: 72px;
-    }
-    .k{
-      font-size: 11px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color: rgba(234,240,255,.62);
-      margin-bottom: 6px;
-    }
-    .v{
-      font-family: Orbitron, Inter, system-ui, sans-serif;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing:.02em;
-      color: rgba(46,231,255,.88);
-    }
-    .v.muted{
-      color: rgba(234,240,255,.86);
-      font-weight:700;
-      font-family: Inter, system-ui, sans-serif;
-      letter-spacing:.01em;
-    }
-
-    /* ПРОМОКОД — другой “стильный” цвет (золото/неон) */
-    .promo{
-      margin-top: 14px;
-      border-radius: 16px;
-      background:
-        radial-gradient(300px 160px at 18% 0%, rgba(255,211,106,.18), transparent 65%),
-        radial-gradient(340px 180px at 90% 10%, rgba(46,231,255,.14), transparent 65%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border: 1px solid rgba(255,211,106,.26);
-      padding: 14px 14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      position:relative;
-      overflow:hidden;
-    }
-    .promo::after{
-      content:"";
-      position:absolute;
-      top:-60%;
-      left:-70%;
-      width: 70%;
-      height: 220%;
-      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.40) 50%, transparent 100%);
-      transform: rotate(18deg);
-      opacity:.45;
-      animation: promoSheen 3.2s ease-in-out infinite;
-      pointer-events:none;
-    }
-    @keyframes promoSheen{
-      0%{ transform: translateX(-140%) rotate(18deg); opacity:0; }
-      18%{ opacity:.45; }
-      60%{ opacity:.45; }
-      100%{ transform: translateX(260%) rotate(18deg); opacity:0; }
-    }
-
-    .promo .code{
-      display:flex;
-      flex-direction:column;
-      gap: 6px;
-      min-width:0;
-    }
-    .promo .code b{
-      font-family: Orbitron, Inter, system-ui, sans-serif;
-      font-size: 19px;
-      letter-spacing:.12em;
-      color: rgba(255,211,106,.95);
-      text-shadow: 0 0 18px rgba(255,211,106,.18);
-    }
-
-    .copy{
-      position:relative;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: rgba(234,240,255,.90);
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-weight: 700;
-      cursor:pointer;
-      white-space:nowrap;
-      overflow:hidden;
-    }
-    .copy:hover{ border-color: rgba(255,211,106,.24); }
-    .copy:active{ transform: translateY(1px); }
-    .copy::after{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,.22) 42%, transparent 55%);
-      transform: translateX(-120%);
-      animation: sheen 2.8s ease-in-out infinite;
-      opacity:.55;
-      pointer-events:none;
-    }
-
-    /* Большая кнопка */
-    .cta{
-      margin-top: 16px;
-      width:100%;
-      border:0;
-      cursor:pointer;
-      padding: 15px 16px;
-      border-radius: 16px;
-      font-family: Orbitron, Inter, system-ui, sans-serif;
-      font-weight: 900;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color: rgba(8,10,16,.95);
-      background: linear-gradient(90deg, #2fe7ff 0%, #a855ff 55%, #ff44d6 100%);
-      box-shadow:
-        0 18px 40px rgba(0,0,0,.45),
-        0 0 0 1px rgba(255,255,255,.18) inset,
-        0 0 30px rgba(46,231,255,.18),
-        0 0 30px rgba(255,68,214,.12);
-      position:relative;
-      overflow:hidden;
-    }
-    .cta:hover{ filter:saturate(1.10) brightness(1.03); }
-    .cta:active{ transform: translateY(1px); }
-
-    .cta::before{
-      content:"";
-      position:absolute;
-      top:-60%;
-      left:-70%;
-      width: 70%;
-      height: 220%;
-      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.58) 50%, transparent 100%);
-      transform: rotate(18deg);
-      opacity:.55;
-      animation: ctaSheen 2.35s ease-in-out infinite;
-      pointer-events:none;
-    }
-    .cta::after{
-      content:"";
-      position:absolute;
-      inset:-40px;
-      background: radial-gradient(260px 120px at 30% 35%, rgba(255,255,255,.24), transparent 60%);
-      filter: blur(18px);
-      opacity:.35;
-      animation: ctaGlow 1.8s ease-in-out infinite alternate;
-      pointer-events:none;
-    }
-
-    @keyframes ctaSheen{
-      0%{ transform: translateX(-140%) rotate(18deg); opacity:0; }
-      15%{ opacity:.58; }
-      55%{ opacity:.58; }
-      100%{ transform: translateX(260%) rotate(18deg); opacity:0; }
-    }
-    @keyframes ctaGlow{ from{opacity:.22} to{opacity:.46} }
-    @keyframes sheen{
-      0%{ transform: translateX(-120%); opacity:0; }
-      25%{ opacity:.55; }
-      60%{ opacity:.55; }
-      100%{ transform: translateX(140%); opacity:0; }
-    }
-
-    .footnote{
-      margin-top: 10px;
-      text-align:center;
-      font-size: 11px;
-      color: rgba(234,240,255,.50);
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      body::before, .lightning, .cta::before, .cta::after, .copy::after, .promo::after, .hero-title, .zap, .logo img{ animation:none !important; }
-    }
-  </style>
+.cta{
+  margin-top:12px; display:block; text-decoration:none; text-align:center;
+  padding:14px 14px; border-radius:14px;
+  background:var(--grad); color:#08101a; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
+  box-shadow:0 14px 28px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.08) inset;
+  position:relative; overflow:hidden;
+}
+.cta::before{
+  content:""; position:absolute; inset:-40%;
+  background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,.55) 50%, transparent 100%);
+  transform:translateX(-60%) rotate(18deg);
+  animation:shine 2.4s linear infinite;
+  opacity:.55;
+}
+@keyframes shine{to{transform:translateX(120%) rotate(18deg)}}
+.cta:hover{filter:saturate(1.1) contrast(1.05)}
+.smallnote{margin-top:8px; text-align:center; color:rgba(233,243,255,.45); font-size:11px}
+</style>
 </head>
-
 <body>
-  <div class="bg-dotgrid"></div>
-<div class="bg-flash"></div>
-  <div class="dotgrid"></div>
-  <div class="lightning"></div>
+  <div class="wrap">
+    <h1>Топ выборка проектов за 2025–2026 год</h1>
+    <p class="sub"><span class="bolt">⚡</span> Эксклюзивные бонусы для новых игроков <span class="bolt">⚡</span></p>
 
-  <main class="wrap">
-    <h1 class="hero-title">Топ выборка проектов за 2025–2026 год</h1>
+    <div class="grid">
+      <!-- 1 Riobet -->
+      <section class="card">
+        <div class="toprow">
+          <div class="logo"><img src="assets/logos/riobet.png" alt="Riobet"></div>
+          <div><p class="name">Riobet</p></div>
+        </div>
+        <div class="rows">
+          <div class="row2">
+            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
+            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+          </div>
+          <div class="promo">
+            <div>
+              <div class="k">Твой промокод</div>
+              <div class="code">BIG500</div>
+            </div>
+            <button class="copy" data-copy="BIG500">Скопировать</button>
+          </div>
+          <a class="cta" href="https://tracker.referilink.com/link?btag=102115133_475652" target="_blank" rel="noopener">Активировать</a>
+        </div>
+      </section>
 
-    <div class="hero-sub">
-      <span class="zap">⚡</span>
-      <span>ЭКСКЛЮЗИВНЫЕ БОНУСЫ ДЛЯ НОВЫХ ИГРОКОВ</span>
-      <span class="zap">⚡</span>
+      <!-- 2 VodkaBet -->
+      <section class="card">
+        <div class="toprow">
+          <div class="logo"><img src="assets/logos/vodka.png" alt="VodkaBet"></div>
+          <div><p class="name">VodkaBet</p></div>
+        </div>
+        <div class="rows">
+          <div class="row2">
+            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
+            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+          </div>
+          <div class="promo">
+            <div>
+              <div class="k">Твой промокод</div>
+              <div class="code">BIG500</div>
+            </div>
+            <button class="copy" data-copy="BIG500">Скопировать</button>
+          </div>
+          <a class="cta" href="https://send3.vodka?id=15491" target="_blank" rel="noopener">Активировать</a>
+        </div>
+      </section>
+
+      <!-- 3 Vavada -->
+      <section class="card">
+        <div class="toprow">
+          <div class="logo"><img src="assets/logos/vavada.png" alt="Vavada"></div>
+          <div><p class="name">Vavada</p></div>
+        </div>
+        <div class="rows">
+          <div class="row2">
+            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
+            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+          </div>
+          <div class="promo">
+            <div>
+              <div class="k">Твой промокод</div>
+              <div class="code">BIG500</div>
+            </div>
+            <button class="copy" data-copy="BIG500">Скопировать</button>
+          </div>
+          <a class="cta" href="#" onclick="return false;">Активировать</a>
+        </div>
+      </section>
+
+      <!-- 4 Beef -->
+      <section class="card">
+        <div class="toprow">
+          <div class="logo"><img src="assets/logos/beef.png" alt="Beef"></div>
+          <div><p class="name">Beef</p></div>
+        </div>
+        <div class="rows">
+          <div class="row2">
+            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
+            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+          </div>
+          <div class="promo">
+            <div>
+              <div class="k">Твой промокод</div>
+              <div class="code">BIG500</div>
+            </div>
+            <button class="copy" data-copy="BIG500">Скопировать</button>
+          </div>
+          <a class="cta" href="https://beef-way-one.com/c88941264" target="_blank" rel="noopener">Активировать</a>
+        </div>
+      </section>
+
+      <!-- 5 Flagman -->
+      <section class="card">
+        <div class="toprow">
+          <div class="logo"><img src="assets/logos/flagman.png" alt="Flagman"></div>
+          <div><p class="name">Flagman</p></div>
+        </div>
+        <div class="rows">
+          <div class="row2">
+            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
+            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+          </div>
+          <div class="promo">
+            <div>
+              <div class="k">Твой промокод</div>
+              <div class="code">BIG500</div>
+            </div>
+            <button class="copy" data-copy="BIG500">Скопировать</button>
+          </div>
+          <a class="cta" href="https://flagman-route-four.com/cf4d55ac2" target="_blank" rel="noopener">Активировать</a>
+        </div>
+      </section>
+
+      <!-- 6 Gizbo -->
+      <section class="card">
+        <div class="toprow">
+          <div class="logo"><img src="assets/logos/gizbo.png" alt="Gizbo"></div>
+          <div><p class="name">Gizbo</p></div>
+        </div>
+        <div class="rows">
+          <div class="row2">
+            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
+            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+          </div>
+          <div class="promo">
+            <div>
+              <div class="k">Твой промокод</div>
+              <div class="code">BIG500</div>
+            </div>
+            <button class="copy" data-copy="BIG500">Скопировать</button>
+          </div>
+          <a class="cta" href="https://gizbo-way-seven.com/cfd6ed23e" target="_blank" rel="noopener">Активировать</a>
+        </div>
+      </section>
+
+      <!-- 7 Martin -->
+      <section class="card">
+        <div class="toprow">
+          <div class="logo"><img src="assets/logos/martin.png" alt="Martin"></div>
+          <div><p class="name">Martin</p></div>
+        </div>
+        <div class="rows">
+          <div class="row2">
+            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
+            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+          </div>
+          <div class="promo">
+            <div>
+              <div class="k">Твой промокод</div>
+              <div class="code">BIG500</div>
+            </div>
+            <button class="copy" data-copy="BIG500">Скопировать</button>
+          </div>
+          <a class="cta" href="https://martin-way-one.com/c9dfd2ffb" target="_blank" rel="noopener">Активировать</a>
+        </div>
+      </section>
+
+      <!-- 8 Jet -->
+      <section class="card">
+        <div class="toprow">
+          <div class="logo"><img src="assets/logos/jet.png" alt="Jet"></div>
+          <div><p class="name">Jet</p></div>
+        </div>
+        <div class="rows">
+          <div class="row2">
+            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
+            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+          </div>
+          <div class="promo">
+            <div>
+              <div class="k">Твой промокод</div>
+              <div class="code">BIG500</div>
+            </div>
+            <button class="copy" data-copy="BIG500">Скопировать</button>
+          </div>
+          <a class="cta" href="https://jetb-intsemed3.com/ca826d4af" target="_blank" rel="noopener">Активировать</a>
+        </div>
+      </section>
+
+      <!-- 9 Lex -->
+      <section class="card">
+        <div class="toprow">
+          <div class="logo"><img src="assets/logos/lex.png" alt="Lex"></div>
+          <div><p class="name">Lex</p></div>
+        </div>
+        <div class="rows">
+          <div class="row2">
+            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
+            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+          </div>
+          <div class="promo">
+            <div>
+              <div class="k">Твой промокод</div>
+              <div class="code">BIG500</div>
+            </div>
+            <button class="copy" data-copy="BIG500">Скопировать</button>
+          </div>
+          <a class="cta" href="https://lex-blit10.com/c5c10ef18" target="_blank" rel="noopener">Активировать</a>
+        </div>
+      </section>
     </div>
 
-    <section class="grid">
+    <div class="smallnote">© 2025–2026</div>
+  </div>
 
-      <!-- 1 -->
-      <article class="card">
-        <div class="card-inner">
-          <div class="head">
-            <div class="brand">
-              <div class="logo"><img src="assets/logos/riobet.png" alt="Riobet"></div>
-              <div class="title">
-                <div class="name">Riobet</div>
-                <div class="hint">Доступ к витрине</div>
-              </div>
-            </div>
-            <div class="pill top">TOP</div>
-          </div>
-
-          <div class="rows">
-            <div class="box"><div class="k">Доступ</div><div class="v">VIP</div></div>
-            <div class="box"><div class="k">Статус</div><div class="v muted">Online</div></div>
-          </div>
-
-          <div class="promo">
-            <div class="code"><div class="k">Твой промокод</div><b>BIG500</b></div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-
-          <button class="cta" data-open="https://tracker.referilink.com/link?btag=102115133_475652">ОТКРЫТЬ</button>
-          <div class="footnote">Откроется в новом окне/вкладке</div>
-        </div>
-      </article>
-
-      <!-- 2 -->
-      <article class="card">
-        <div class="card-inner">
-          <div class="head">
-            <div class="brand">
-              <div class="logo"><img src="assets/logos/vodka.png" alt="Vodka"></div>
-              <div class="title">
-                <div class="name">Vodka</div>
-                <div class="hint">Доступ к витрине</div>
-              </div>
-            </div>
-            <div class="pill hot">HOT</div>
-          </div>
-
-          <div class="rows">
-            <div class="box"><div class="k">Доступ</div><div class="v">VIP</div></div>
-            <div class="box"><div class="k">Статус</div><div class="v muted">Online</div></div>
-          </div>
-
-          <div class="promo">
-            <div class="code"><div class="k">Твой промокод</div><b>BIG500</b></div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-
-          <button class="cta" data-open="https://tracker.referilink.com/link?btag=102115133_475652">ОТКРЫТЬ</button>
-          <div class="footnote">Откроется в новом окне/вкладке</div>
-        </div>
-      </article>
-
-      <!-- 3 -->
-      <article class="card">
-        <div class="card-inner">
-          <div class="head">
-            <div class="brand">
-              <div class="logo"><img src="assets/logos/vavada.png" alt="Vavada"></div>
-              <div class="title">
-                <div class="name">Vavada</div>
-                <div class="hint">Доступ к витрине</div>
-              </div>
-            </div>
-            <div class="pill new">NEW</div>
-          </div>
-
-          <div class="rows">
-            <div class="box"><div class="k">Доступ</div><div class="v">VIP</div></div>
-            <div class="box"><div class="k">Статус</div><div class="v muted">Online</div></div>
-          </div>
-
-          <div class="promo">
-            <div class="code"><div class="k">Твой промокод</div><b>BIG500</b></div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-
-          <button class="cta" data-open="https://tracker.referilink.com/link?btag=102115133_475652">ОТКРЫТЬ</button>
-          <div class="footnote">Откроется в новом окне/вкладке</div>
-        </div>
-      </article>
-
-      <!-- 4 -->
-      <article class="card">
-        <div class="card-inner">
-          <div class="head">
-            <div class="brand">
-              <div class="logo"><img src="assets/logos/beef.png" alt="Beef"></div>
-              <div class="title">
-                <div class="name">Beef</div>
-                <div class="hint">Доступ к витрине</div>
-              </div>
-            </div>
-            <div class="pill vip">VIP</div>
-          </div>
-
-          <div class="rows">
-            <div class="box"><div class="k">Доступ</div><div class="v">VIP</div></div>
-            <div class="box"><div class="k">Статус</div><div class="v muted">Online</div></div>
-          </div>
-
-          <div class="promo">
-            <div class="code"><div class="k">Твой промокод</div><b>BIG500</b></div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-
-          <button class="cta" data-open="https://tracker.referilink.com/link?btag=102115133_475652">ОТКРЫТЬ</button>
-          <div class="footnote">Откроется в новом окне/вкладке</div>
-        </div>
-      </article>
-
-      <!-- 5 -->
-      <article class="card">
-        <div class="card-inner">
-          <div class="head">
-            <div class="brand">
-              <div class="logo"><img src="assets/logos/flagman.png" alt="Flagman"></div>
-              <div class="title">
-                <div class="name">Flagman</div>
-                <div class="hint">Доступ к витрине</div>
-              </div>
-            </div>
-            <div class="pill top">TOP</div>
-          </div>
-
-          <div class="rows">
-            <div class="box"><div class="k">Доступ</div><div class="v">VIP</div></div>
-            <div class="box"><div class="k">Статус</div><div class="v muted">Online</div></div>
-          </div>
-
-          <div class="promo">
-            <div class="code"><div class="k">Твой промокод</div><b>BIG500</b></div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-
-          <button class="cta" data-open="https://tracker.referilink.com/link?btag=102115133_475652">ОТКРЫТЬ</button>
-          <div class="footnote">Откроется в новом окне/вкладке</div>
-        </div>
-      </article>
-
-      <!-- 6 -->
-      <article class="card">
-        <div class="card-inner">
-          <div class="head">
-            <div class="brand">
-              <div class="logo"><img src="assets/logos/gizbo.png" alt="Gizbo"></div>
-              <div class="title">
-                <div class="name">Gizbo</div>
-                <div class="hint">Доступ к витрине</div>
-              </div>
-            </div>
-            <div class="pill hot">HOT</div>
-          </div>
-
-          <div class="rows">
-            <div class="box"><div class="k">Доступ</div><div class="v">VIP</div></div>
-            <div class="box"><div class="k">Статус</div><div class="v muted">Online</div></div>
-          </div>
-
-          <div class="promo">
-            <div class="code"><div class="k">Твой промокод</div><b>BIG500</b></div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-
-          <button class="cta" data-open="https://tracker.referilink.com/link?btag=102115133_475652">ОТКРЫТЬ</button>
-          <div class="footnote">Откроется в новом окне/вкладке</div>
-        </div>
-      </article>
-
-      <!-- 7 -->
-      <article class="card">
-        <div class="card-inner">
-          <div class="head">
-            <div class="brand">
-              <div class="logo"><img src="assets/logos/irwin.png" alt="Irwin"></div>
-              <div class="title">
-                <div class="name">Irwin</div>
-                <div class="hint">Доступ к витрине</div>
-              </div>
-            </div>
-            <div class="pill new">NEW</div>
-          </div>
-
-          <div class="rows">
-            <div class="box"><div class="k">Доступ</div><div class="v">VIP</div></div>
-            <div class="box"><div class="k">Статус</div><div class="v muted">Online</div></div>
-          </div>
-
-          <div class="promo">
-            <div class="code"><div class="k">Твой промокод</div><b>BIG500</b></div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-
-          <button class="cta" data-open="https://tracker.referilink.com/link?btag=102115133_475652">ОТКРЫТЬ</button>
-          <div class="footnote">Откроется в новом окне/вкладке</div>
-        </div>
-      </article>
-
-      <!-- 8 -->
-      <article class="card">
-        <div class="card-inner">
-          <div class="head">
-            <div class="brand">
-              <div class="logo"><img src="assets/logos/martin.png" alt="Martin"></div>
-              <div class="title">
-                <div class="name">Martin</div>
-                <div class="hint">Доступ к витрине</div>
-              </div>
-            </div>
-            <div class="pill vip">VIP</div>
-          </div>
-
-          <div class="rows">
-            <div class="box"><div class="k">Доступ</div><div class="v">VIP</div></div>
-            <div class="box"><div class="k">Статус</div><div class="v muted">Online</div></div>
-          </div>
-
-          <div class="promo">
-            <div class="code"><div class="k">Твой промокод</div><b>BIG500</b></div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-
-          <button class="cta" data-open="https://tracker.referilink.com/link?btag=102115133_475652">ОТКРЫТЬ</button>
-          <div class="footnote">Откроется в новом окне/вкладке</div>
-        </div>
-      </article>
-
-      <!-- 9 -->
-      <article class="card">
-        <div class="card-inner">
-          <div class="head">
-            <div class="brand">
-              <div class="logo"><img src="assets/logos/jet.png" alt="Jet"></div>
-              <div class="title">
-                <div class="name">Jet</div>
-                <div class="hint">Доступ к витрине</div>
-              </div>
-            </div>
-            <div class="pill top">TOP</div>
-          </div>
-
-          <div class="rows">
-            <div class="box"><div class="k">Доступ</div><div class="v">VIP</div></div>
-            <div class="box"><div class="k">Статус</div><div class="v muted">Online</div></div>
-          </div>
-
-          <div class="promo">
-            <div class="code"><div class="k">Твой промокод</div><b>BIG500</b></div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-
-          <button class="cta" data-open="https://tracker.referilink.com/link?btag=102115133_475652">ОТКРЫТЬ</button>
-          <div class="footnote">Откроется в новом окне/вкладке</div>
-        </div>
-      </article>
-
-      <!-- 10 -->
-      <article class="card">
-        <div class="card-inner">
-          <div class="head">
-            <div class="brand">
-              <div class="logo"><img src="assets/logos/lex.png" alt="Lex"></div>
-              <div class="title">
-                <div class="name">Lex</div>
-                <div class="hint">Доступ к витрине</div>
-              </div>
-            </div>
-            <div class="pill hot">HOT</div>
-          </div>
-
-          <div class="rows">
-            <div class="box"><div class="k">Доступ</div><div class="v">VIP</div></div>
-            <div class="box"><div class="k">Статус</div><div class="v muted">Online</div></div>
-          </div>
-
-          <div class="promo">
-            <div class="code"><div class="k">Твой промокод</div><b>BIG500</b></div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-
-          <button class="cta" data-open="https://tracker.referilink.com/link?btag=102115133_475652">ОТКРЫТЬ</button>
-          <div class="footnote">Откроется в новом окне/вкладке</div>
-        </div>
-      </article>
-
-    </section>
-  </main>
-
-  <script>
-    // Открыть
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-open]');
-      if (btn){
-        const url = btn.getAttribute('data-open');
-        window.open(url, '_blank', 'noopener,noreferrer');
-      }
-    });
-
-    // Копировать промокод
-    async function copyText(text){
-      try{
-        await navigator.clipboard.writeText(text);
-        return true;
-      }catch(_){
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.setAttribute('readonly','');
-        ta.style.position='fixed';
-        ta.style.top='-9999px';
-        document.body.appendChild(ta);
-        ta.select();
-        const ok = document.execCommand('copy');
-        ta.remove();
-        return ok;
-      }
-    }
-
-    document.addEventListener('click', async (e) => {
-      const btn = e.target.closest('[data-copy]');
-      if (!btn) return;
-      const text = btn.getAttribute('data-copy') || '';
-      const ok = await copyText(text);
-      const prev = btn.textContent;
-      btn.textContent = ok ? 'Скопировано' : 'Не вышло';
-      setTimeout(()=> btn.textContent = prev, 1200);
-    });
-  </script>
+<script>
+document.addEventListener("click", async (e)=>{
+  const b = e.target.closest(".copy"); if(!b) return;
+  const t = b.getAttribute("data-copy")||"";
+  try{ await navigator.clipboard.writeText(t); b.textContent="Готово"; }
+  catch{ b.textContent="Скопируй"; }
+  setTimeout(()=>b.textContent="Скопировать", 1200);
+});
+</script>
 </body>
 </html>
