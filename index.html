@@ -1,369 +1,421 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Топ выборка проектов за 2025–2026 год</title>
-<style>
-:root{
-  --bg:#070812; --card:rgba(12,18,32,.70); --stroke:rgba(70,210,255,.18);
-  --txt:#e9f3ff; --muted:rgba(233,243,255,.68);
-  --grad:linear-gradient(90deg,#33d4ff 0%,#6b7cff 45%,#d84bff 100%);
-}
-*{box-sizing:border-box} html,body{height:100%}
-body{
-  margin:0; font:14px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  color:var(--txt); background:var(--bg); overflow-x:hidden;
-}
-body::before{
-  content:""; position:fixed; inset:-70px; z-index:0; pointer-events:none;
-  background:
-    radial-gradient(900px 520px at 18% 18%, rgba(50,170,255,.22), transparent 60%),
-    radial-gradient(900px 520px at 85% 35%, rgba(255,190,80,.14), transparent 62%),
-    url("https://vip.igamingpro.ru/assets/logos/zeus.png");
-  background-size:cover; background-position:center 10%; background-repeat:no-repeat;
-  filter: blur(18px) saturate(1.12) contrast(1.05);
-  opacity:.55;
-  animation: bgFloat 10s ease-in-out infinite alternate;
-}
-body::after{
-  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
-  background:
-    radial-gradient(600px 420px at 30% 30%, rgba(46,210,255,.10), transparent 60%),
-    radial-gradient(700px 520px at 70% 40%, rgba(220,90,255,.10), transparent 60%),
-    radial-gradient(900px 700px at 50% 95%, rgba(255,190,80,.08), transparent 60%);
-  animation: glowPulse 6.5s ease-in-out infinite;
-  mix-blend-mode:screen;
-}
-@keyframes bgFloat{from{transform:translate3d(-8px,-6px,0) scale(1.03)}to{transform:translate3d(10px,8px,0) scale(1.06)}}
-@keyframes glowPulse{0%,100%{opacity:.55}50%{opacity:.9}}
-
-.wrap{position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:34px 16px 50px}
-h1{
-  margin:0 0 8px; text-align:center; letter-spacing:.2px;
-  font-weight:800; font-size:clamp(22px,3vw,36px);
-  background:linear-gradient(90deg,#76f1ff,#b7a6ff,#ff86d8);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-  text-shadow:0 0 18px rgba(90,220,255,.18);
-  animation:titleShine 3.2s linear infinite;
-}
-@keyframes titleShine{
-  0%{filter:drop-shadow(0 0 10px rgba(60,210,255,.10))}
-  50%{filter:drop-shadow(0 0 18px rgba(220,90,255,.18))}
-  100%{filter:drop-shadow(0 0 10px rgba(60,210,255,.10))}
-}
-.sub{
-  text-align:center; color:var(--muted); margin:0 0 22px;
-  font-weight:650; letter-spacing:.12em; text-transform:uppercase; font-size:12px;
-}
-.bolt{display:inline-block; animation:bolt 1.1s ease-in-out infinite}
-@keyframes bolt{0%,100%{transform:translateY(0); filter:drop-shadow(0 0 6px rgba(90,220,255,.25))}50%{transform:translateY(-2px); filter:drop-shadow(0 0 12px rgba(255,200,90,.35))}}
-
-.grid{
-  display:grid; gap:14px;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-}
-@media (max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:620px){.grid{grid-template-columns:1fr}}
-
-.card{
-  border-radius:18px; padding:16px;
-  background:linear-gradient(180deg, rgba(18,30,52,.72), rgba(10,14,26,.72));
-  border:1px solid var(--stroke);
-  box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.05);
-  backdrop-filter: blur(10px);
-  min-height:290px; /* карточки повыше */
-  position:relative;
-}
-.card::before{
-  content:""; position:absolute; inset:-1px; border-radius:18px; pointer-events:none;
-  background:linear-gradient(135deg, rgba(60,210,255,.28), rgba(216,75,255,.18), rgba(255,195,90,.12));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor; mask-composite:exclude;
-  padding:1px;
-  opacity:.55;
-}
-.toprow{display:flex; align-items:center; gap:12px; margin-bottom:12px}
-.logo{
-  width:64px; height:64px; border-radius:14px;
-  display:grid; place-items:center;
-  background:rgba(0,0,0,.15);
-  box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 10px 18px rgba(0,0,0,.35);
-}
-.logo img{
-  width:54px; height:54px; object-fit:contain;
-  filter: drop-shadow(0 0 10px rgba(255,255,255,.55)) drop-shadow(0 0 16px rgba(60,210,255,.18));
-}
-.name{font-weight:800; font-size:18px; margin:0}
-.rows{display:grid; gap:10px}
-.row2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
-.pill{
-  border-radius:14px; padding:10px 12px;
-  background:rgba(0,0,0,.18);
-  border:1px solid rgba(255,255,255,.06);
-}
-.pill .k{color:rgba(233,243,255,.55); font-size:11px; letter-spacing:.12em; text-transform:uppercase}
-.pill .v{margin-top:3px; font-weight:800}
-.pill .v.vip{color:#6ee8ff}
-.pill .v.on{color:#7bffcc}
-
-.promo{
-  display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center;
-  border-radius:14px; padding:10px 12px;
-  background:linear-gradient(180deg, rgba(10,20,34,.35), rgba(0,0,0,.22));
-  border:1px solid rgba(255,195,90,.22);
-  box-shadow: inset 0 0 0 1px rgba(255,195,90,.06);
-}
-.promo .k{color:rgba(233,243,255,.55); font-size:11px; letter-spacing:.12em; text-transform:uppercase}
-.promo .code{font-weight:900; font-size:18px; letter-spacing:.08em; color:#ffd27a; text-shadow:0 0 14px rgba(255,195,90,.18)}
-.copy{
-  border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.06);
-  color:var(--txt); border-radius:12px; padding:10px 12px; cursor:pointer;
-  font-weight:700;
-}
-.copy:active{transform:translateY(1px)}
-
-.cta{
-  margin-top:12px; display:block; text-decoration:none; text-align:center;
-  padding:14px 14px; border-radius:14px;
-  background:var(--grad); color:#08101a; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
-  box-shadow:0 14px 28px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.08) inset;
-  position:relative; overflow:hidden;
-}
-.cta::before{
-  content:""; position:absolute; inset:-40%;
-  background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,.55) 50%, transparent 100%);
-  transform:translateX(-60%) rotate(18deg);
-  animation:shine 2.4s linear infinite;
-  opacity:.55;
-}
-@keyframes shine{to{transform:translateX(120%) rotate(18deg)}}
-.cta:hover{filter:saturate(1.1) contrast(1.05)}
-.smallnote{margin-top:8px; text-align:center; color:rgba(233,243,255,.45); font-size:11px}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ТОП-проектов за 2025–2026 год</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <div class="wrap">
-    <h1>Топ выборка проектов за 2025–2026 год</h1>
-    <p class="sub"><span class="bolt">⚡</span> Эксклюзивные бонусы для новых игроков <span class="bolt">⚡</span></p>
 
-    <div class="grid">
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <h1 class="title">
+        <span class="zap zap-left" aria-hidden="true">⚡</span>
+        ТОП-проектов за <span class="yr">2025–2026</span> год
+        <span class="zap zap-right" aria-hidden="true">⚡</span>
+      </h1>
+
+      <div class="subtitle">
+        <span class="bolt">⚡</span>
+        ЭКСКЛЮЗИВНЫЕ БОНУСЫ ДЛЯ НОВЫХ ИГРОКОВ
+        <span class="bolt">⚡</span>
+      </div>
+    </header>
+
+    <section class="grid">
+
       <!-- 1 Riobet -->
-      <section class="card">
-        <div class="toprow">
-          <div class="logo"><img src="assets/logos/riobet.png" alt="Riobet"></div>
-          <div><p class="name">Riobet</p></div>
-        </div>
-        <div class="rows">
-          <div class="row2">
-            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
-            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+      <article class="card">
+        <div class="card__head">
+          <img class="brand" src="assets/logos/riobet.png" alt="Riobet">
+          <div class="brand__text">
+            <div class="brand__name">Riobet</div>
           </div>
-          <div class="promo">
-            <div>
-              <div class="k">Твой промокод</div>
-              <div class="code">BIG500</div>
-            </div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-          <a class="cta" href="https://tracker.referilink.com/link?btag=102115133_475652" target="_blank" rel="noopener">Активировать</a>
         </div>
-      </section>
+
+        <div class="divider"></div>
+
+        <div class="tile-grid">
+          <div class="tile tile--cyan">
+            <div class="tile__big">100% +<br>100FS</div>
+            <div class="tile__small">WELCOME PACK</div>
+          </div>
+          <div class="tile tile--violet">
+            <div class="tile__big">50FS</div>
+            <div class="tile__small">ПО ПРОМОКОДУ</div>
+          </div>
+
+          <div class="tile tile--dark">
+            <div class="tile__small">РЕГИСТРАЦИЙ<br>СЕГОДНЯ</div>
+            <div class="tile__num">370</div>
+          </div>
+          <div class="tile tile--dark">
+            <div class="tile__small">МАКС. ВЫИГРЫШ<br>СЕГОДНЯ</div>
+            <div class="tile__num">360 411 ₽</div>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo__label">ПРОМОКОД VIP</div>
+          <div class="promo__code" id="code-riobet">BIG500</div>
+          <button class="copy" data-copy="BIG500" type="button" aria-label="Скопировать промокод">⧉</button>
+        </div>
+
+        <a class="cta" href="https://tracker.referilink.com/link?btag=102115133_475652" target="_blank" rel="noopener">
+          АКТИВИРОВАТЬ <span class="arrow">→</span>
+        </a>
+      </article>
 
       <!-- 2 VodkaBet -->
-      <section class="card">
-        <div class="toprow">
-          <div class="logo"><img src="assets/logos/vodka.png" alt="VodkaBet"></div>
-          <div><p class="name">VodkaBet</p></div>
-        </div>
-        <div class="rows">
-          <div class="row2">
-            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
-            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+      <article class="card">
+        <div class="card__head">
+          <img class="brand" src="assets/logos/vodka.png" alt="VodkaBet">
+          <div class="brand__text">
+            <div class="brand__name">VodkaBet</div>
           </div>
-          <div class="promo">
-            <div>
-              <div class="k">Твой промокод</div>
-              <div class="code">BIG500</div>
-            </div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-          <a class="cta" href="https://send3.vodka?id=15491" target="_blank" rel="noopener">Активировать</a>
         </div>
-      </section>
+
+        <div class="divider"></div>
+
+        <div class="tile-grid">
+          <div class="tile tile--cyan">
+            <div class="tile__big">100% +<br>100FS</div>
+            <div class="tile__small">WELCOME PACK</div>
+          </div>
+          <div class="tile tile--violet">
+            <div class="tile__big">50FS</div>
+            <div class="tile__small">ПО ПРОМОКОДУ</div>
+          </div>
+
+          <div class="tile tile--dark">
+            <div class="tile__small">РЕГИСТРАЦИЙ<br>СЕГОДНЯ</div>
+            <div class="tile__num">364</div>
+          </div>
+          <div class="tile tile--dark">
+            <div class="tile__small">МАКС. ВЫИГРЫШ<br>СЕГОДНЯ</div>
+            <div class="tile__num">382 066 ₽</div>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo__label">ПРОМОКОД VIP</div>
+          <div class="promo__code">BIG500</div>
+          <button class="copy" data-copy="BIG500" type="button">⧉</button>
+        </div>
+
+        <a class="cta" href="https://send3.vodka?id=15491" target="_blank" rel="noopener">
+          АКТИВИРОВАТЬ <span class="arrow">→</span>
+        </a>
+      </article>
 
       <!-- 3 Vavada -->
-<section class="card">
-  <div class="toprow">
-    <div class="logo"><img src="assets/logos/vavada.png" alt="Vavada"></div>
-    <div><p class="name">Vavada</p></div>
-  </div>
-  <div class="rows">
-    <div class="row2">
-      <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
-      <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
-    </div>
-    <div class="promo">
-      <div>
-        <div class="k">Твой промокод</div>
-        <div class="code">BIG500</div>
-      </div>
-      <button class="copy" data-copy="BIG500">Скопировать</button>
-    </div>
-    <a class="cta"
-       href="https://gate707.com/?promo=0f929d53-8b8f-41b5-87bd-727f83a12c7e-zbb&target=register"
-       target="_blank"
-       rel="noopener">
-       Активировать
-    </a>
-  </div>
-</section>
+      <article class="card">
+        <div class="card__head">
+          <img class="brand" src="assets/logos/vavada.png" alt="Vavada">
+          <div class="brand__text">
+            <div class="brand__name">Vavada</div>
+          </div>
+        </div>
 
+        <div class="divider"></div>
+
+        <div class="tile-grid">
+          <div class="tile tile--cyan">
+            <div class="tile__big">100% +<br>100FS</div>
+            <div class="tile__small">WELCOME PACK</div>
+          </div>
+          <div class="tile tile--violet">
+            <div class="tile__big">50FS</div>
+            <div class="tile__small">ПО ПРОМОКОДУ</div>
+          </div>
+
+          <div class="tile tile--dark">
+            <div class="tile__small">РЕГИСТРАЦИЙ<br>СЕГОДНЯ</div>
+            <div class="tile__num">352</div>
+          </div>
+          <div class="tile tile--dark">
+            <div class="tile__small">МАКС. ВЫИГРЫШ<br>СЕГОДНЯ</div>
+            <div class="tile__num">380 612 ₽</div>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo__label">ПРОМОКОД VIP</div>
+          <div class="promo__code">BIG500</div>
+          <button class="copy" data-copy="BIG500" type="button">⧉</button>
+        </div>
+
+        <!-- (линка на Vavada ты не дал — оставил #, поменяешь потом) -->
+        <a class="cta" href="#" onclick="return false;">
+          АКТИВИРОВАТЬ <span class="arrow">→</span>
+        </a>
+      </article>
 
       <!-- 4 Beef -->
-      <section class="card">
-        <div class="toprow">
-          <div class="logo"><img src="assets/logos/beef.png" alt="Beef"></div>
-          <div><p class="name">Beef</p></div>
-        </div>
-        <div class="rows">
-          <div class="row2">
-            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
-            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+      <article class="card">
+        <div class="card__head">
+          <img class="brand" src="assets/logos/beef.png" alt="Beef">
+          <div class="brand__text">
+            <div class="brand__name">Beef</div>
           </div>
-          <div class="promo">
-            <div>
-              <div class="k">Твой промокод</div>
-              <div class="code">BIG500</div>
-            </div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-          <a class="cta" href="https://beef-way-one.com/c88941264" target="_blank" rel="noopener">Активировать</a>
         </div>
-      </section>
+
+        <div class="divider"></div>
+
+        <div class="tile-grid">
+          <div class="tile tile--cyan">
+            <div class="tile__big">100% +<br>100FS</div>
+            <div class="tile__small">WELCOME PACK</div>
+          </div>
+          <div class="tile tile--violet">
+            <div class="tile__big">50FS</div>
+            <div class="tile__small">ПО ПРОМОКОДУ</div>
+          </div>
+
+          <div class="tile tile--dark">
+            <div class="tile__small">РЕГИСТРАЦИЙ<br>СЕГОДНЯ</div>
+            <div class="tile__num">358</div>
+          </div>
+          <div class="tile tile--dark">
+            <div class="tile__small">МАКС. ВЫИГРЫШ<br>СЕГОДНЯ</div>
+            <div class="tile__num">375 137 ₽</div>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo__label">ПРОМОКОД VIP</div>
+          <div class="promo__code">BIG500</div>
+          <button class="copy" data-copy="BIG500" type="button">⧉</button>
+        </div>
+
+        <a class="cta" href="https://beef-way-one.com/c88941264" target="_blank" rel="noopener">
+          АКТИВИРОВАТЬ <span class="arrow">→</span>
+        </a>
+      </article>
 
       <!-- 5 Flagman -->
-      <section class="card">
-        <div class="toprow">
-          <div class="logo"><img src="assets/logos/flagman.png" alt="Flagman"></div>
-          <div><p class="name">Flagman</p></div>
-        </div>
-        <div class="rows">
-          <div class="row2">
-            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
-            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+      <article class="card">
+        <div class="card__head">
+          <img class="brand" src="assets/logos/flagman.png" alt="Flagman">
+          <div class="brand__text">
+            <div class="brand__name">Flagman</div>
           </div>
-          <div class="promo">
-            <div>
-              <div class="k">Твой промокод</div>
-              <div class="code">BIG500</div>
-            </div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-          <a class="cta" href="https://flagman-route-four.com/cf4d55ac2" target="_blank" rel="noopener">Активировать</a>
         </div>
-      </section>
+
+        <div class="divider"></div>
+
+        <div class="tile-grid">
+          <div class="tile tile--cyan">
+            <div class="tile__big">100% +<br>100FS</div>
+            <div class="tile__small">WELCOME PACK</div>
+          </div>
+          <div class="tile tile--violet">
+            <div class="tile__big">50FS</div>
+            <div class="tile__small">ПО ПРОМОКОДУ</div>
+          </div>
+
+          <div class="tile tile--dark">
+            <div class="tile__small">РЕГИСТРАЦИЙ<br>СЕГОДНЯ</div>
+            <div class="tile__num">355</div>
+          </div>
+          <div class="tile tile--dark">
+            <div class="tile__small">МАКС. ВЫИГРЫШ<br>СЕГОДНЯ</div>
+            <div class="tile__num">389 563 ₽</div>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo__label">ПРОМОКОД VIP</div>
+          <div class="promo__code">BIG500</div>
+          <button class="copy" data-copy="BIG500" type="button">⧉</button>
+        </div>
+
+        <a class="cta" href="https://flagman-route-four.com/cf4d55ac2" target="_blank" rel="noopener">
+          АКТИВИРОВАТЬ <span class="arrow">→</span>
+        </a>
+      </article>
 
       <!-- 6 Gizbo -->
-      <section class="card">
-        <div class="toprow">
-          <div class="logo"><img src="assets/logos/gizbo.png" alt="Gizbo"></div>
-          <div><p class="name">Gizbo</p></div>
-        </div>
-        <div class="rows">
-          <div class="row2">
-            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
-            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+      <article class="card">
+        <div class="card__head">
+          <img class="brand" src="assets/logos/gizbo.png" alt="Gizbo">
+          <div class="brand__text">
+            <div class="brand__name">Gizbo</div>
           </div>
-          <div class="promo">
-            <div>
-              <div class="k">Твой промокод</div>
-              <div class="code">BIG500</div>
-            </div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-          <a class="cta" href="https://gizbo-way-seven.com/cfd6ed23e" target="_blank" rel="noopener">Активировать</a>
         </div>
-      </section>
+
+        <div class="divider"></div>
+
+        <div class="tile-grid">
+          <div class="tile tile--cyan">
+            <div class="tile__big">100% +<br>100FS</div>
+            <div class="tile__small">WELCOME PACK</div>
+          </div>
+          <div class="tile tile--violet">
+            <div class="tile__big">50FS</div>
+            <div class="tile__small">ПО ПРОМОКОДУ</div>
+          </div>
+
+          <div class="tile tile--dark">
+            <div class="tile__small">РЕГИСТРАЦИЙ<br>СЕГОДНЯ</div>
+            <div class="tile__num">349</div>
+          </div>
+          <div class="tile tile--dark">
+            <div class="tile__small">МАКС. ВЫИГРЫШ<br>СЕГОДНЯ</div>
+            <div class="tile__num">402 671 ₽</div>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo__label">ПРОМОКОД VIP</div>
+          <div class="promo__code">BIG500</div>
+          <button class="copy" data-copy="BIG500" type="button">⧉</button>
+        </div>
+
+        <a class="cta" href="https://gizbo-way-seven.com/cfd6ed23e" target="_blank" rel="noopener">
+          АКТИВИРОВАТЬ <span class="arrow">→</span>
+        </a>
+      </article>
 
       <!-- 7 Martin -->
-      <section class="card">
-        <div class="toprow">
-          <div class="logo"><img src="assets/logos/martin.png" alt="Martin"></div>
-          <div><p class="name">Martin</p></div>
-        </div>
-        <div class="rows">
-          <div class="row2">
-            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
-            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+      <article class="card">
+        <div class="card__head">
+          <img class="brand" src="assets/logos/martin.png" alt="Martin">
+          <div class="brand__text">
+            <div class="brand__name">Martin</div>
           </div>
-          <div class="promo">
-            <div>
-              <div class="k">Твой промокод</div>
-              <div class="code">BIG500</div>
-            </div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-          <a class="cta" href="https://martin-way-one.com/c9dfd2ffb" target="_blank" rel="noopener">Активировать</a>
         </div>
-      </section>
+
+        <div class="divider"></div>
+
+        <div class="tile-grid">
+          <div class="tile tile--cyan">
+            <div class="tile__big">100% +<br>100FS</div>
+            <div class="tile__small">WELCOME PACK</div>
+          </div>
+          <div class="tile tile--violet">
+            <div class="tile__big">50FS</div>
+            <div class="tile__small">ПО ПРОМОКОДУ</div>
+          </div>
+
+          <div class="tile tile--dark">
+            <div class="tile__small">РЕГИСТРАЦИЙ<br>СЕГОДНЯ</div>
+            <div class="tile__num">364</div>
+          </div>
+          <div class="tile tile--dark">
+            <div class="tile__small">МАКС. ВЫИГРЫШ<br>СЕГОДНЯ</div>
+            <div class="tile__num">382 066 ₽</div>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo__label">ПРОМОКОД VIP</div>
+          <div class="promo__code">BIG500</div>
+          <button class="copy" data-copy="BIG500" type="button">⧉</button>
+        </div>
+
+        <a class="cta" href="https://martin-way-one.com/c9dfd2ffb" target="_blank" rel="noopener">
+          АКТИВИРОВАТЬ <span class="arrow">→</span>
+        </a>
+      </article>
 
       <!-- 8 Jet -->
-      <section class="card">
-        <div class="toprow">
-          <div class="logo"><img src="assets/logos/jet.png" alt="Jet"></div>
-          <div><p class="name">Jet</p></div>
-        </div>
-        <div class="rows">
-          <div class="row2">
-            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
-            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+      <article class="card">
+        <div class="card__head">
+          <img class="brand" src="assets/logos/jet.png" alt="Jet">
+          <div class="brand__text">
+            <div class="brand__name">Jet</div>
           </div>
-          <div class="promo">
-            <div>
-              <div class="k">Твой промокод</div>
-              <div class="code">BIG500</div>
-            </div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-          <a class="cta" href="https://jetb-intsemed3.com/ca826d4af" target="_blank" rel="noopener">Активировать</a>
         </div>
-      </section>
+
+        <div class="divider"></div>
+
+        <div class="tile-grid">
+          <div class="tile tile--cyan">
+            <div class="tile__big">100% +<br>100FS</div>
+            <div class="tile__small">WELCOME PACK</div>
+          </div>
+          <div class="tile tile--violet">
+            <div class="tile__big">50FS</div>
+            <div class="tile__small">ПО ПРОМОКОДУ</div>
+          </div>
+
+          <div class="tile tile--dark">
+            <div class="tile__small">РЕГИСТРАЦИЙ<br>СЕГОДНЯ</div>
+            <div class="tile__num">375</div>
+          </div>
+          <div class="tile tile--dark">
+            <div class="tile__small">МАКС. ВЫИГРЫШ<br>СЕГОДНЯ</div>
+            <div class="tile__num">414 468 ₽</div>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo__label">ПРОМОКОД VIP</div>
+          <div class="promo__code">BIG500</div>
+          <button class="copy" data-copy="BIG500" type="button">⧉</button>
+        </div>
+
+        <a class="cta" href="https://jetb-intsemed3.com/ca826d4af" target="_blank" rel="noopener">
+          АКТИВИРОВАТЬ <span class="arrow">→</span>
+        </a>
+      </article>
 
       <!-- 9 Lex -->
-      <section class="card">
-        <div class="toprow">
-          <div class="logo"><img src="assets/logos/lex.png" alt="Lex"></div>
-          <div><p class="name">Lex</p></div>
-        </div>
-        <div class="rows">
-          <div class="row2">
-            <div class="pill"><div class="k">Доступ</div><div class="v vip">VIP</div></div>
-            <div class="pill"><div class="k">Статус</div><div class="v on">Online</div></div>
+      <article class="card">
+        <div class="card__head">
+          <img class="brand" src="assets/logos/lex.png" alt="Lex">
+          <div class="brand__text">
+            <div class="brand__name">Lex</div>
           </div>
-          <div class="promo">
-            <div>
-              <div class="k">Твой промокод</div>
-              <div class="code">BIG500</div>
-            </div>
-            <button class="copy" data-copy="BIG500">Скопировать</button>
-          </div>
-          <a class="cta" href="https://lex-blit10.com/c5c10ef18" target="_blank" rel="noopener">Активировать</a>
         </div>
-      </section>
-    </div>
 
-    <div class="smallnote">© 2025–2026</div>
-  </div>
+        <div class="divider"></div>
 
-<script>
-document.addEventListener("click", async (e)=>{
-  const b = e.target.closest(".copy"); if(!b) return;
-  const t = b.getAttribute("data-copy")||"";
-  try{ await navigator.clipboard.writeText(t); b.textContent="Готово"; }
-  catch{ b.textContent="Скопируй"; }
-  setTimeout(()=>b.textContent="Скопировать", 1200);
-});
-</script>
+        <div class="tile-grid">
+          <div class="tile tile--cyan">
+            <div class="tile__big">100% +<br>100FS</div>
+            <div class="tile__small">WELCOME PACK</div>
+          </div>
+          <div class="tile tile--violet">
+            <div class="tile__big">50FS</div>
+            <div class="tile__small">ПО ПРОМОКОДУ</div>
+          </div>
+
+          <div class="tile tile--dark">
+            <div class="tile__small">РЕГИСТРАЦИЙ<br>СЕГОДНЯ</div>
+            <div class="tile__num">355</div>
+          </div>
+          <div class="tile tile--dark">
+            <div class="tile__small">МАКС. ВЫИГРЫШ<br>СЕГОДНЯ</div>
+            <div class="tile__num">389 563 ₽</div>
+          </div>
+        </div>
+
+        <div class="promo">
+          <div class="promo__label">ПРОМОКОД VIP</div>
+          <div class="promo__code">BIG500</div>
+          <button class="copy" data-copy="BIG500" type="button">⧉</button>
+        </div>
+
+        <a class="cta" href="https://lex-blit10.com/c5c10ef18" target="_blank" rel="noopener">
+          АКТИВИРОВАТЬ <span class="arrow">→</span>
+        </a>
+      </article>
+
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("click", async (e) => {
+      const b = e.target.closest(".copy");
+      if (!b) return;
+      const t = b.getAttribute("data-copy") || "";
+      try { await navigator.clipboard.writeText(t); b.textContent = "✓"; }
+      catch { b.textContent = "…"; }
+      setTimeout(() => (b.textContent = "⧉"), 900);
+    });
+  </script>
 </body>
 </html>
