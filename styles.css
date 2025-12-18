@@ -175,6 +175,7 @@ body::after{
   transform: translateX(-70%) rotate(18deg);
   animation: cardShine 6s linear infinite;
   opacity:.35;
+  pointer-events: none; /* ← ВАЖНО */
 }
 @keyframes cardShine{ to{ transform: translateX(140%) rotate(18deg); } }
 
@@ -353,8 +354,8 @@ body::after{
   position:relative;
   overflow:hidden;
   transform: translateZ(0);
+  z-index: 5; /* ← ВАЖНО */
 }
-
 .cta .arrow{ display:inline-block; margin-left:6px; }
 
 .cta::before{
