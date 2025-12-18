@@ -1,1 +1,89 @@
+/* === OLYMPUS BACKGROUND (NO IMAGES) === */
+:root{
+  --bg:#070812;
+  --cyan:#2fe7ff;
+  --violet:#a855ff;
+  --pink:#ff44d6;
+  --gold:#ffd36a;
+  --sky:#3aa6ff;
+}
+
+html,body{height:100%}
+body{
+  margin:0;
+  background: var(--bg);
+  color:#eaf0ff;
+  overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
+}
+
+/* base blur sky + gold glow */
+body::before{
+  content:"";
+  position:fixed;
+  inset:-180px;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 50% 8%, rgba(58,166,255,.30), transparent 65%),
+    radial-gradient(880px 520px at 18% 10%, rgba(46,231,255,.18), transparent 70%),
+    radial-gradient(920px 580px at 82% 14%, rgba(168,85,255,.16), transparent 70%),
+    radial-gradient(680px 420px at 50% 26%, rgba(255,211,106,.18), transparent 64%),
+    radial-gradient(780px 520px at 72% 38%, rgba(255,183,74,.12), transparent 68%),
+    radial-gradient(520px 260px at 26% 22%, rgba(255,255,255,.10), transparent 70%),
+    radial-gradient(640px 320px at 64% 22%, rgba(255,255,255,.08), transparent 72%),
+    radial-gradient(760px 380px at 46% 36%, rgba(255,255,255,.07), transparent 74%),
+    linear-gradient(115deg, transparent 0%, rgba(58,166,255,.12) 46%, transparent 54%),
+    linear-gradient(255deg, transparent 0%, rgba(255,211,106,.10) 44%, transparent 54%);
+  filter: blur(18px) saturate(1.25) contrast(1.06);
+  opacity:.98;
+  transform: translateZ(0);
+  animation: olympSky 10s ease-in-out infinite alternate;
+}
+
+@keyframes olympSky{
+  from{ transform: translate3d(-10px,-8px,0) scale(1.03); }
+  to  { transform: translate3d(12px,10px,0) scale(1.06); }
+}
+
+/* dotted grid overlay */
+.bg-dotgrid{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.14;
+  background-image: radial-gradient(rgba(255,255,255,.22) 1px, transparent 1px);
+  background-size: 6px 6px;
+  mask-image: radial-gradient(70% 60% at 50% 18%, #000 56%, transparent 100%);
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 18%, #000 56%, transparent 100%);
+}
+
+/* lightning flash layer */
+.bg-flash{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.12;
+  background:
+    radial-gradient(900px 520px at 14% 40%, rgba(46,231,255,.18), transparent 60%),
+    radial-gradient(900px 520px at 86% 44%, rgba(255,211,106,.16), transparent 62%),
+    linear-gradient(120deg, transparent 0%, rgba(255,255,255,.18) 48%, transparent 55%);
+  mix-blend-mode: screen;
+  filter: blur(28px);
+  animation: flash 3.6s ease-in-out infinite;
+}
+
+@keyframes flash{
+  0%, 62%, 100% { opacity:.05; }
+  66% { opacity:.18; }
+  72% { opacity:.07; }
+  80% { opacity:.15; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  body::before, .bg-flash { animation:none !important; }
+}
 
