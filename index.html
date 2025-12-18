@@ -421,6 +421,9 @@
   const WIN_MIN = 300000;
   const WIN_MAX = 950000;
 
+  const REG_MIN = 200;
+  const REG_MAX = 700;
+
   function formatRub(n) {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽";
   }
@@ -434,33 +437,44 @@
     return (h >>> 0) / 4294967295;
   }
 
-  function dailyRand(dayKey, cardKey) {
-    return hashToFloat(dayKey + "|" + cardKey);
+  function todayKey() {
+    const d = new Date();
+    return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
   }
 
-  (function setDailyWins() {
-    const today = new Date();
-    const dayKey = today.getFullYear() + "-" + String(today.getMonth()+1).padStart(2,"0") + "-" + String(today.getDate()).padStart(2,"0");
+  (function dailyStats() {
+    const day = todayKey();
 
-    // ВАЖНО: меняем только элементы с data-win="1"
-    const els = document.querySelectorAll('[data-win="1"]');
-
-    els.forEach((el, idx) => {
+    // ===== ВЫИГРЫШИ =====
+    document.querySelectorAll('[data-win="1"]').forEach((el, i) => {
       const card = el.closest(".card");
-      const nameEl = card ? card.querySelector(".brand__name") : null;
-      const cardKey = (nameEl ? nameEl.textContent.trim() : "card") + "#" + idx;
+      const name = card?.querySelector(".brand__name")?.textContent || "card";
+      const key = `win_${day}_${name}_${i}`;
 
-      const storeKey = "daily_win_" + dayKey + "_" + cardKey;
-
-      let val = localStorage.getItem(storeKey);
-      if (val == null) {
-        const r = dailyRand(dayKey, cardKey);
-        const n = Math.round(WIN_MIN + r * (WIN_MAX - WIN_MIN));
-        val = String(n);
-        localStorage.setItem(storeKey, val);
+      let val = localStorage.getItem(key);
+      if (!val) {
+        const r = hashToFloat(key);
+        val = Math.round(WIN_MIN + r * (WIN_MAX - WIN_MIN));
+        localStorage.setItem(key, val);
       }
 
-      el.textContent = formatRub(Number(val));
+      el.textContent = formatRub(+val);
+    });
+
+    // ===== РЕГИСТРАЦИИ =====
+    document.querySelectorAll('[data-reg="1"]').forEach((el, i) => {
+      const card = el.closest(".card");
+      const name = card?.querySelector(".brand__name")?.textContent || "card";
+      const key = `reg_${day}_${name}_${i}`;
+
+      let val = localStorage.getItem(key);
+      if (!val) {
+        const r = hashToFloat(key);
+        val = Math.round(REG_MIN + r * (REG_MAX - REG_MIN));
+        localStorage.setItem(key, val);
+      }
+
+      el.textContent = val;
     });
   })();
 </script>
