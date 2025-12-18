@@ -2,231 +2,78 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Доступ внутри</title>
-  <style>
-    :root{
-      --bg:#070910;
-      --panel:#0c0f18;
-      --text:#ffffff;
-      --muted:#aeb7c8;
-      --muted2:#c7d0e4;
-
-      --c1:#1ea0ff;
-      --c2:#7b61ff;
-      --c3:#ff3a3a;
-    }
-
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: radial-gradient(1200px 600px at 25% 30%, rgba(30,160,255,.14), transparent 60%),
-                  radial-gradient(900px 500px at 75% 35%, rgba(255,58,58,.12), transparent 60%),
-                  radial-gradient(700px 450px at 55% 80%, rgba(123,97,255,.10), transparent 60%),
-                  var(--bg);
-      color:var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      padding:20px;
-    }
-
-    /* neon frame */
-    .wrap{
-      width:min(720px, 100%);
-      padding:1px;
-      border-radius:22px;
-      background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));
-      box-shadow: 0 28px 80px rgba(0,0,0,.55);
-    }
-    .card{
-      border-radius:21px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.06), transparent 25%),
-        var(--panel);
-      border:1px solid rgba(255,255,255,.06);
-      overflow:hidden;
-      position:relative;
-    }
-
-    /* subtle top bar */
-    .topbar{
-      height:10px;
-      background:linear-gradient(90deg, rgba(30,160,255,.35), rgba(123,97,255,.35), rgba(255,58,58,.35));
-    }
-
-    .content{
-      padding:34px 22px 28px;
-      text-align:center;
-    }
-
-    .kicker{
-      font-size:12px;
-      letter-spacing:1.9px;
-      text-transform:uppercase;
-      color:var(--muted);
-      opacity:.95;
-    }
-    h1{
-      margin:10px 0 0;
-      font-size:30px;
-      line-height:36px;
-      letter-spacing:.2px;
-      font-weight:900;
-    }
-    .sub{
-      margin:10px auto 0;
-      max-width:520px;
-      font-size:14px;
-      line-height:20px;
-      color:var(--muted2);
-      opacity:.92;
-    }
-
-    /* promo box */
-    .promoFrame{
-      margin:22px auto 0;
-      width:min(560px,100%);
-      padding:1px;
-      border-radius:18px;
-      background:linear-gradient(90deg, rgba(30,160,255,.9), rgba(123,97,255,.9), rgba(255,58,58,.9));
-    }
-    .promoBox{
-      border-radius:17px;
-      padding:18px 16px 16px;
-      background:linear-gradient(90deg,#081a3a 0%, #110b1a 45%, #2a0b0b 100%);
-      border:1px solid rgba(255,255,255,.08);
-    }
-    .promoLabel{
-      font-size:12px;
-      letter-spacing:1.5px;
-      text-transform:uppercase;
-      color:#e7ecff;
-      opacity:.88;
-    }
-    .promoCode{
-      margin-top:10px;
-      font-size:54px;
-      line-height:58px;
-      font-weight:900;
-      letter-spacing:2px;
-      text-shadow: 0 0 18px rgba(30,160,255,.22), 0 0 18px rgba(255,58,58,.16);
-    }
-
-    /* CTA */
-    .ctaWrap{
-      margin-top:22px;
-      display:flex;
-      justify-content:center;
-    }
-    .cta{
-      position:relative;
-      display:inline-block;
-      padding:20px 64px;
-      border-radius:999px;
-      text-decoration:none;
-      color:#fff;
-      font-size:18px;
-      font-weight:900;
-      letter-spacing:1.2px;
-      text-transform:uppercase;
-      background:linear-gradient(90deg,var(--c1) 0%, var(--c3) 100%);
-      box-shadow: 0 16px 46px rgba(0,0,0,.6);
-      overflow:hidden;
-      transform:translateZ(0);
-      animation:pulse 1.9s ease-in-out infinite;
-    }
-    .cta::before{
-      content:"";
-      position:absolute;
-      inset:2px;
-      border-radius:999px;
-      background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0));
-      opacity:.6;
-      pointer-events:none;
-    }
-    .cta::after{
-      content:"";
-      position:absolute;
-      top:-45%;
-      left:-70%;
-      width:55%;
-      height:190%;
-      transform:skewX(-18deg);
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
-      opacity:.65;
-      animation:shine 2.6s ease-in-out infinite;
-    }
-    .cta:hover{
-      filter:brightness(1.06);
-      box-shadow: 0 18px 58px rgba(0,0,0,.62), 0 0 34px rgba(30,160,255,.18), 0 0 34px rgba(255,58,58,.16);
-    }
-
-    .fine{
-      margin-top:18px;
-      font-size:12px;
-      line-height:18px;
-      color:var(--muted);
-      opacity:.85;
-    }
-
-    @keyframes shine{
-      0%   { left:-70%; }
-      55%  { left:130%; }
-      100% { left:130%; }
-    }
-    @keyframes pulse{
-      0%,100% { transform:translateZ(0) scale(1); }
-      50%     { transform:translateZ(0) scale(1.02); }
-    }
-
-    @media (max-width:520px){
-      h1{font-size:26px; line-height:32px;}
-      .promoCode{font-size:44px; line-height:50px;}
-      .cta{padding:18px 34px; font-size:16px;}
-      .content{padding:28px 16px 22px;}
-    }
-
-    @media (prefers-reduced-motion:reduce){
-      .cta,.cta::after{animation:none!important;}
-    }
-  </style>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0d16" />
+  <title>Топ подборка — декабрь</title>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="topbar"></div>
-      <div class="content">
+  <div class="bg">
+    <div class="bg__grid"></div>
+    <div class="bg__glow bg__glow--a"></div>
+    <div class="bg__glow bg__glow--b"></div>
+    <div class="bg__stars" aria-hidden="true"></div>
+  </div>
 
-        <div class="kicker">Доступ внутри</div>
-        <h1>АКТИВИРУЙ И ПРОДОЛЖАЙ</h1>
+  <header class="hero">
+    <div class="container">
+      <h1 class="hero__title">
+        <span class="neon neon--cyan">ТОП ВЫБОРКА</span>
+        <span class="neon neon--violet">КАЗИНО</span>
+        <span class="neon neon--cyan">ЗА</span>
+        <span class="neon neon--violet">ДЕКАБРЬ</span>
+      </h1>
 
-        <div class="sub">
-          Доступ открыт. Дальше — всё самое интересное внутри.
+      <div class="hero__sub">
+        <span class="spark">⚡</span>
+        <span>Эксклюзивные предложения для новых игроков</span>
+        <span class="spark">⚡</span>
+      </div>
+
+      <div class="hero__note">
+        <span class="pill">Обновляется автоматически</span>
+        <span class="pill pill--outline">Поддержка 24/7</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="grid" id="cards">
+      <!-- Карточки — редактируй как хочешь -->
+      <article class="card">
+        <div class="card__head">
+          <div class="brand">
+            <span class="brand__dot"></span>
+            <div class="brand__name">Flagman Casino</div>
+          </div>
+          <div class="ribbon">ТОП • Рекомендуем</div>
         </div>
 
-        <div class="promoFrame">
-          <div class="promoBox">
-            <div class="promoLabel">Твой промокод готов</div>
-            <div class="promoCode" id="PROMO_CODE">BIG500</div>
+        <div class="card__split">
+          <div class="stat">
+            <div class="stat__big">100% + 100FS</div>
+            <div class="stat__small">Welcome pack</div>
+          </div>
+          <div class="stat stat--dark">
+            <div class="stat__big">50FS</div>
+            <div class="stat__small">по промокоду</div>
           </div>
         </div>
 
-        <div class="ctaWrap">
-          <a class="cta" id="CTA_URL" href="https://tracker.referilink.com/link?btag=102115133_475652" target="_blank" rel="noopener">
-            АКТИВИРОВАТЬ ДОСТУП
-          </a>
+        <div class="card__split card__split--thin">
+          <div class="mini">
+            <div class="mini__label">Регистраций сегодня</div>
+            <div class="mini__value js-rand" data-min="340" data-max="390">—</div>
+          </div>
+          <div class="mini mini--dark">
+            <div class="mini__label">Макс. выигрыш сегодня</div>
+            <div class="mini__value js-money" data-min="320000" data-max="460000">—</div>
+          </div>
         </div>
 
-        <div class="fine">
-          Нейтральное уведомление. Если неактуально — просто закрой страницу.
-        </div>
-
-      </div>
-    </div>
-  </div>
-</body>
-</html>
+        <div class="promo">
+          <div class="promo__label">Промокод VIP</div>
+          <button class="promo__code js-copy" data-copy="BIGBONUS100">
+            <span>BIGBONUS100</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H6a2
